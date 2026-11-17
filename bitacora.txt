@@ -1,0 +1,152 @@
+BITÁCORA TÉCNICA - RUEDA LIBRE (Nodo Digital)
+==============================================
+Convención: los datos marcados [MEDIDO] se obtuvieron con herramientas
+(curl, wc, gzip, cálculo de contraste). Los marcados [COMPLETAR] dependen de
+tu máquina (DevTools, cronómetro, validador W3C) y debes registrarlos tú.
+
+----------------------------------------------------------------------
+1. FUNDAMENTOS HTTP (Reto 1)
+----------------------------------------------------------------------
+1.1 Petición del documento (DevTools > Network > index.html, Live Server)
+    URL completa : http://127.0.0.1:5500/index.html
+    Protocolo    : http
+    Host         : 127.0.0.1 (localhost)
+    Puerto       : 5500 (por defecto en Live Server)
+    Ruta         : /index.html
+    Método       : GET
+    Código       : 200 OK
+    [MEDIDO con servidor local en :5500 + curl; confirma en Headers de DevTools]
+
+1.2 Ruta inexistente: http://127.0.0.1:5500/promociones.html
+    Código  : 404 Not Found
+    Significa: el servidor está bien, pero no hay recurso en esa ruta.
+
+    200 vs 404: 200 = encontré y entrego el recurso. 404 = no existe en esa ruta.
+
+1.3 ¿Qué pasa cuando alguien escribe la dirección del sitio? (para el cliente)
+    DNS traduce el dominio a IP -> el navegador abre conexión -> envía GET con
+    la ruta -> el servidor responde con código + HTML -> el navegador lee el
+    HTML y pide CSS, imágenes y JS -> dibuja la página.
+
+1.4 Roles
+    HTML       : estructura y contenido. Ej.: <h1>Rueda Libre</h1>, tarjetas de flota.
+    CSS        : presentación. Ej.: botón .btn-pedal naranja con texto azul noche.
+    JavaScript : comportamiento. Ej.: el script que valida el formulario de reservas.
+
+1.5 Semántica y <div>/<span>
+    Se usa <header>, <nav>, <main>, <section>, <article>, <aside>, <footer>,
+    <address>, <fieldset>/<legend> porque aportan significado a lectores de
+    pantalla y buscadores. <div> y <span> se reservan para agrupar o marcar
+    cuando NO existe una etiqueta con significado (ej.: contenedor de una promo
+    del carrusel, <span class="badge"> "Nuevo").
+
+----------------------------------------------------------------------
+2. VALIDACIÓN DE FORMULARIOS (reservas.html y nocturna/index.html)
+----------------------------------------------------------------------
+Prueba                                   Entrada                 Resultado esperado
+1 Nombre corto (minlength=3)             "Al"                    Inválido
+2 Documento (6-10 dígitos)               "12345"                 Inválido
+3 Documento válido                       "1037654321"            Válido
+4 Celular (3[0-9]{9})                    "2001234567"            Inválido
+5 Celular válido                         "3001234567"            Válido
+6 Fecha fuera de rango (min/max)         2027-01-05              Inválido
+7 Bicicletas (min=1, max=6)              7                       Inválido
+8 Políticas sin marcar (required)        sin check               Inválido
+9 Nocturna: acompañantes (0-3)           4                       Inválido
+10 Nocturna: radio nivel sin elegir      -                       Inválido
+[COMPLETAR] columna "Resultado real" tras probar en el navegador.
+
+----------------------------------------------------------------------
+3. AUDITORÍA WCAG (contraste calculado) [MEDIDO]
+----------------------------------------------------------------------
+Combinación (texto sobre fondo)       Ratio   >=4.5
+Azul Noche sobre Crema                14.83   Sí
+Verde Ruta sobre Crema                 4.93   Sí
+Verde Ruta sobre Blanco                5.31   Sí
+Blanco sobre Verde Ruta                5.31   Sí
+Gris Asfalto sobre Crema               5.57   Sí
+Gris Asfalto sobre Blanco              6.00   Sí
+Azul Noche sobre Naranja Pedal         7.20   Sí
+Azul Noche sobre Amarillo Farol       11.08   Sí
+Modo oscuro:
+Crema sobre Azul Noche                14.83   Sí
+Amarillo Farol sobre Azul Noche       11.08   Sí
+Naranja Pedal sobre Azul Noche         7.20   Sí
+Verde Ruta sobre Azul Noche            3.01   NO -> prohibido para texto normal
+Hallazgos y decisiones:
+ 1. Verde sobre Azul Noche falla: en oscuro se usa Crema o Amarillo Farol.
+ 2. Gris Asfalto en oscuro se sustituye por Crema (texto secundario).
+ 3. Navbar y footer usan Crema/Amarillo Farol sobre Azul Noche.
+ 4. Badge "Difícil" cambia a Amarillo Farol/Azul Noche en oscuro (si no, azul sobre azul).
+ 5. Foco visible con ring en todos los controles; carrusel con texto
+    "visually-hidden" en anterior/siguiente; toda imagen con alt (decorativas alt="").
+ 6. El logo SVG decorativo del navbar usa alt="" porque el texto ya dice "Rueda Libre".
+
+----------------------------------------------------------------------
+4. PRUEBAS CSS
+----------------------------------------------------------------------
+4.1 Herencia: color y font-family puestos en <body> los hereda <p> sin
+    reescribirlos; en cambio border o margin NO se heredan.
+4.2 Especificidad: "#menu a" (id + elemento = 1,0,1) vence a ".activo"
+    (clase = 0,1,0), aunque ".activo" aparezca después. Por eso en el
+    proyecto se evita usar ids en CSS y se evita !important (0 en styles.css).
+    Verificado: .navbar .nav-link.nav-nocturna (0,3,0) supera a .navbar .nav-link
+    (0,2,0) sin !important.
+4.3 Box model: content-box -> width 300px + padding 20px + borde 2px = 344px
+    reales. border-box -> el ancho (300px) ya incluye padding y borde.
+    Bootstrap y Tailwind aplican border-box a todo.
+    [COMPLETAR] captura de Elements > Computed con ambos valores.
+
+----------------------------------------------------------------------
+5. COMPARATIVA DE ENFOQUES
+----------------------------------------------------------------------
+[MEDIDO] Peso del CSS de framework:
+  Bootstrap 5.3.3 CSS min : 232.803 bytes (31.079 gzip)
+  Bootstrap bundle JS min :  80.721 bytes (23.765 gzip)
+  Tailwind v4 output.css  :  20.053 bytes ( 3.999 gzip) - solo lo usado
+[MEDIDO] Líneas de HTML: index.html 249, reservas 179, tarifas 98,
+  catálogo 71, nocturna/index 203, componentes 52, prototipo 31;
+  css/styles.css 56 líneas; nocturna/src/input.css 24 líneas.
+[COMPLETAR] CSS propio v1.5: tiempos y líneas (el v1.5 no está en este repo).
+[COMPLETAR] Tiempo real de construcción de cada versión y peso en Network.
+
+Criterios:             CSS propio       Bootstrap 5.3          Tailwind v4
+Velocidad de montaje   lenta            rápida (componentes)   media (utilidades)
+Peso final             mínimo posible   alto (232 KB CSS)      bajo (20 KB)
+Control del diseño     total            medio (hay que anular) total
+Mantenibilidad         media            alta (convención)      alta (tema + @apply)
+Veredicto: Bootstrap para el sitio informativo (nav, carrusel, modal y
+validación ya resueltos). Tailwind para la landing de campaña, donde el
+diseño es único y el peso importa. Ambos comparten paleta y tipografía.
+
+----------------------------------------------------------------------
+6. RETOS CONTRARRELOJ (Sesión 9)
+----------------------------------------------------------------------
+Reto                         Límite    Tiempo real      W3C
+1 Sitio Bootstrap            40 min    [COMPLETAR]      [COMPLETAR]
+2 Landing Tailwind           40 min    [COMPLETAR]      [COMPLETAR]
+3 Integración + formulario   45 min    [COMPLETAR]      [COMPLETAR]
+Validar en https://validator.w3.org/nu/ cada HTML y registrar "0 errores".
+
+----------------------------------------------------------------------
+7. GUION DE DEMO (3 minutos)
+----------------------------------------------------------------------
+0:00-0:20 Contexto: Rueda Libre quería un sitio informativo y una campaña
+          nocturna; dos productos, una identidad (paleta + Montserrat/Open Sans).
+0:20-1:00 Sitio v2.0 en vivo: navbar, carrusel (4ª diapositiva -> Rueda Nocturna),
+          flota con etiqueta "Nuevo", tarifas, reservas con validación y modal.
+1:00-1:40 Landing nocturna: logo vuelve al sitio, rutas, planes (Pareja
+          destacado), "Reserva tu bici" -> reservas.html.
+1:40-2:10 Inscripción: enviar vacío (errores nativos) y luego completa.
+2:10-2:30 Móvil (DevTools 375 px): menú oculto, grillas 1 columna.
+2:30-2:45 Modo oscuro: contraste Crema/Amarillo Farol sobre Azul Noche.
+2:45-3:00 Dos decisiones técnicas: (1) Bootstrap para el sitio y Tailwind para
+          la campaña; (2) sin !important ni estilos en línea, color por variables.
+Retroalimentación: [COMPLETAR tras la demo]
+
+----------------------------------------------------------------------
+8. COMMITS
+----------------------------------------------------------------------
+ feat: estructura inicial, index.html base y bitácora de petición HTTP
+ feat: sitio Bootstrap v2.0 (inicio, tarifas, reservas, laboratorio) y styles.css
+ feat: landing Rueda Nocturna con Tailwind v4, README y bitácora final

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 320" role="img" aria-labelledby="t">
+  <title id="t">Ciclista recorriendo Medellín al atardecer</title>
+  <rect width="480" height="320" fill="#14213D"/>
+  <circle cx="380" cy="80" r="46" fill="#FFD166"/>
+  <path d="M0 230 L90 130 L170 200 L260 110 L360 190 L480 140 V320 H0 Z" fill="#1E7A4F"/>
+  <path d="M0 270 Q120 220 240 260 T480 250 V320 H0 Z" fill="#FAF6EF"/>
+  <g fill="none" stroke="#F39A2B" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="170" cy="255" r="34"/><circle cx="290" cy="255" r="34"/>
+    <path d="M170 255 L212 208 L276 208 L290 255 M212 208 L232 255 L170 255"/>
+  </g>
+</svg>

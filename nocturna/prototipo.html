@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Prototipo inicial del hero de Rueda Nocturna con Tailwind Play CDN.">
+  <title>Prototipo Hero | Rueda Nocturna</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-azul-noche: #14213D;
+      --color-crema: #FAF6EF;
+      --color-naranja-pedal: #F39A2B;
+      --color-amarillo-farol: #FFD166;
+      --font-titulo: "Montserrat", sans-serif;
+      --font-cuerpo: "Open Sans", sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-azul-noche font-cuerpo text-crema">
+  <main class="mx-auto flex min-h-screen max-w-3xl flex-col justify-center gap-4 px-6 py-16">
+    <span class="w-fit rounded-full bg-amarillo-farol px-3 py-1 text-sm font-semibold text-azul-noche">Nuevo · Jueves a sábado</span>
+    <h1 class="font-titulo text-4xl font-bold md:text-6xl">Rueda Nocturna</h1>
+    <p class="text-lg">Descubre Medellín en bici cuando se encienden las luces</p>
+    <a href="#" class="w-fit rounded-lg bg-naranja-pedal px-5 py-3 font-semibold text-azul-noche hover:bg-amarillo-farol focus:outline-none focus:ring-4 focus:ring-crema">Inscríbete</a>
+  </main>
+</body>
+</html>

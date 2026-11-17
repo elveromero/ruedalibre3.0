@@ -1,0 +1,56 @@
+/* Rueda Libre v2.0 - se carga DESPUÉS de Bootstrap */
+:root {
+  --bs-primary: #1E7A4F;
+  --bs-primary-rgb: 30, 122, 79;
+  --bs-body-bg: #FAF6EF;
+  --bs-body-color: #14213D;
+  --bs-secondary-color: #5B6470;
+  --bs-body-font-family: "Open Sans", sans-serif;
+  --bs-link-color: #1E7A4F;
+  --bs-link-hover-color: #14213D;
+  --rl-verde: #1E7A4F;
+  --rl-naranja: #F39A2B;
+  --rl-azul: #14213D;
+  --rl-asfalto: #5B6470;
+  --rl-farol: #FFD166;
+}
+h1, h2, h3, h4, h5, h6, .navbar-brand { font-family: "Montserrat", sans-serif; font-weight: 700; }
+body { padding-bottom: 5rem; }
+
+.navbar { background-color: var(--rl-azul); }
+.navbar .nav-link, .navbar .navbar-brand { color: var(--bs-body-bg); }
+.navbar .nav-link:hover, .navbar .nav-link.active { color: var(--rl-farol); }
+.navbar-toggler { border-color: var(--bs-body-bg); }
+.navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23FAF6EF' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); }
+.navbar .nav-link.nav-nocturna { background-color: var(--rl-farol); color: var(--rl-azul); border-radius: .5rem; font-weight: 600; }
+.navbar .nav-link.nav-nocturna:hover { background-color: var(--rl-naranja); }
+
+.btn-primary { --bs-btn-bg: #1E7A4F; --bs-btn-border-color: #1E7A4F; --bs-btn-hover-bg: #14213D; --bs-btn-hover-border-color: #14213D; --bs-btn-active-bg: #14213D; --bs-btn-active-border-color: #14213D; --bs-btn-color: #fff; }
+.btn-pedal { background-color: var(--rl-naranja); border: 1px solid var(--rl-naranja); color: var(--rl-azul); font-weight: 600; }
+.btn-pedal:hover, .btn-pedal:focus { background-color: var(--rl-farol); border-color: var(--rl-farol); color: var(--rl-azul); }
+
+.hero { background-color: var(--rl-azul); color: var(--bs-body-bg); padding: 4rem 0; }
+.hero p { max-width: 38rem; }
+.hero-img { max-width: 100%; height: auto; }
+
+.carousel-item { background-color: var(--rl-azul); color: var(--bs-body-bg); }
+.promo { min-height: 260px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 2.5rem 4rem; }
+.promo-nocturna { background-color: var(--rl-farol); color: var(--rl-azul); }
+
+.card { position: relative; border-color: rgba(20, 33, 61, .15); }
+.badge-nuevo { position: absolute; top: .75rem; right: .75rem; background-color: var(--rl-naranja); color: var(--rl-azul); font-weight: 700; }
+.card-img-top { background-color: var(--bs-body-bg); height: 160px; object-fit: cover; }
+.icono-beneficio { font-size: 2rem; color: var(--rl-verde); }
+
+.franja-cta { background-color: var(--rl-verde); color: #fff; padding: 3rem 0; }
+.franja-cta .btn-pedal { color: var(--rl-azul); }
+
+.footer-rl { background-color: var(--rl-azul); color: var(--bs-body-bg); padding: 2rem 0; }
+.footer-rl a { color: var(--rl-farol); }
+
+.enlace-whatsapp { position: fixed; right: 1rem; bottom: 1rem; z-index: 1030; background-color: #1E7A4F; color: #fff; padding: .75rem 1rem; border-radius: 2rem; text-decoration: none; font-weight: 600; box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .3); }
+.enlace-whatsapp:hover { background-color: var(--rl-azul); color: #fff; }
+
+.table caption { color: var(--rl-asfalto); caption-side: top; }
+fieldset { margin-bottom: 1.5rem; }
+legend { font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 1.15rem; }

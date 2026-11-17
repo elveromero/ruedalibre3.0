@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="t">
+  <title id="t">Logo Rueda Libre</title>
+  <rect width="240" height="240" rx="32" fill="#FAF6EF"/>
+  <circle cx="120" cy="120" r="84" fill="none" stroke="#1E7A4F" stroke-width="14"/>
+  <circle cx="120" cy="120" r="16" fill="#F39A2B"/>
+  <g stroke="#14213D" stroke-width="6" stroke-linecap="round">
+    <line x1="120" y1="36" x2="120" y2="104"/>
+    <line x1="120" y1="136" x2="120" y2="204"/>
+    <line x1="36" y1="120" x2="104" y2="120"/>
+    <line x1="136" y1="120" x2="204" y2="120"/>
+  </g>
+</svg>
